@@ -17,16 +17,20 @@ def receive():
         # Accept Connection
         client, address = server_socket.accept()
 
-        #adding client to clients
-        clients.append(client)
-        print("Connected with {}".format(str(address)))
+        client.send('xx'.encode('utf-8'))
+
+
+
+        print(f"Connected with client on {str(address)}")
 
         #Recieve the name of the person joined the chat and print to server
         nickname = client.recv(1024).decode('utf-8')
         print(f'{nickname} joined')
 
+        # adding client to clients
+        clients.append(client)
         #Send to all client who joined
-        #toAllClients((f'{nickname} joined chat').encode('utf-8'))
+        toAllClients((f'{nickname} joined chat').encode('utf-8'))
 
         #toAllClients("heisann".encode('utf-8'))
 
@@ -34,8 +38,8 @@ def receive():
         #print(message.decode())
         #toAll(message)
 
-        #thread = threading.Thread(target=fromClientToClients, args=(client,))
-        #thread.start()
+        thread = threading.Thread(target=fromClientToClients, args=(client,))
+        thread.start()
 
 
 def fromClientToClients(client):
@@ -44,8 +48,7 @@ def fromClientToClients(client):
         print(message.decode('utf-8'))
         toAllClients(message)
 
-        thread = threading.Thread(target=fromClientToClients, args=(client,))
-        thread.start()
+
 
 print('Server is ready...')
 receive()

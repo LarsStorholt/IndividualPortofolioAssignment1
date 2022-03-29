@@ -10,21 +10,29 @@ nickname = input("Choose a nickname: ")
 
 def recieve():
     while True:
-        client_socket.send(nickname.encode())
-        message = client_socket.recv(1024).decode('utf-8')
-        print(message)
-        #input('')
+        try:
+            message = client_socket.recv(1024).decode('utf-8')
+            if message == "xx":
+                client_socket.send(nickname.encode())
+            else:
+                print(message)
+                #input('')
 
-        #print(f'{nickname}: {input("")}')
+                #print(f'{nickname}: {input("")}')
+        except:
+            print("error")
+            client_socket.close()
+            break
 
 
 #def motattfraBots():
  #   print(meldingFraBot())
 
 def writeInChat():
-    message = f'{nickname}: {input("")}'
-    #print(message)
-    client_socket.send(message.encode('utf-8'))
+    while True:
+        message = f'{nickname}: {input("")}'
+        #print(message)
+        client_socket.send(message.encode('utf-8'))
 
 #funksjon()
 #writeInChat()
