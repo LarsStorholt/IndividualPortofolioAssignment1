@@ -2,13 +2,13 @@ import socket
 import threading
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(("localhost", 8000))
+server_socket.bind(("localhost", 8081))
 server_socket.listen()
 
 clients = []
 
 #Message to all clients
-def toAll(message):
+def toAllClients(message):
     for client in clients:
         client.send(message)
 
@@ -16,6 +16,8 @@ def receive():
     while True:
         # Accept Connection
         client, address = server_socket.accept()
+
+        #adding client to clients
         clients.append(client)
         print("Connected with {}".format(str(address)))
 
@@ -24,22 +26,26 @@ def receive():
         print(f'{nickname} joined')
 
         #Send to all client who joined
-        toAll((f'{nickname} joined chat').encode('utf-8'))
+        #toAllClients((f'{nickname} joined chat').encode('utf-8'))
 
-        message = client.recv(1024)
-        print(message.decode())
+        #toAllClients("heisann".encode('utf-8'))
+
+        #message = client.recv(1024)
+        #print(message.decode())
         #toAll(message)
 
-        #thread = threading.Thread(target=handle, args=(client,))
+        #thread = threading.Thread(target=fromClientToClients, args=(client,))
         #thread.start()
 
 
-#def handle(client):
- #   while True:
-  #      message = client.recv(1024)
-   #     toAll(message)
+def fromClientToClients(client):
+    while True:
+        message = client.recv(1024)
+        print(message.decode('utf-8'))
+        toAllClients(message)
 
-
+        thread = threading.Thread(target=fromClientToClients, args=(client,))
+        thread.start()
 
 print('Server is ready...')
 receive()
