@@ -2,10 +2,10 @@ import random
 import list_of_words
 
 def meldingFraBot():
-    return "Bot: I can't answer that, sorry"
+    return "Ellen: I can't answer that, sorry"
 
 
-def Ellen(word):
+def ellen(word):
     if word in list_of_words.hello_list:
         response = random.choice(list_of_words.hello_list)
         return "Ellen: " + response
@@ -20,7 +20,7 @@ def Ellen(word):
         ]
         return "Ellen: " + response
 
-def Ola(word):
+def ola(word):
     if word in list_of_words.hello_list:
         response = random.choice(list_of_words.hello_list)
         return "Ola: " + response
@@ -35,21 +35,21 @@ def Ola(word):
         ]
         return "Ola: " + response
 
-def Ingrid(word):
-    if word in list_of_words.hello_list:
-        response = random.choice(list_of_words.hello_list)
-        return "Ingrid: " + response
-    elif word in list_of_words.verbs:
-        response = [
-            f'{word + "ing"} is exactly what I need now!'
-            f'Im in the middle of something right now. i aint got time for helping you with {word + "ing"}'
-            f'Jesus christ! Are you sure about that?  I have to shower first and take some pills. Then Im ready for {word + "ing"} '
-            f'My granma died last nigh. So I cannot {word + "ing"} today'
-            f'I love to {word + "ing"} on mondays, but sundays are for resting'
-        ]
-        return "Ingrid: " + response
+def ingrid(word):
+    # if word in list_of_words.hello_list:
+      #  response = random.choice(list_of_words.hello_list)
+     #   return "Ingrid: " + response
+    #elif word in list_of_words.verbs:
+    response = [
+        f'{word + "ing"} is exactly what I need now!'
+        f'Im in the middle of something right now. i aint got time for helping you with {word + "ing"}'
+        f'Jesus christ! Are you sure about that?  I have to shower first and take some pills. Then Im ready for {word + "ing"} '
+        f'My granma died last nigh. So I cannot {word + "ing"} today'
+        f'I love to {word + "ing"} on mondays, but sundays are for resting'
+    ]
+    return "Ingrid: " + response
 
-def Steffen(word):
+def steffen(word):
     if word in list_of_words.hello_list:
         response = random.choice(list_of_words.hello_list)
         return "Steffen: " + response

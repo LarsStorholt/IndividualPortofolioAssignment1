@@ -6,6 +6,7 @@ server_socket.bind(("localhost", 8081))
 server_socket.listen()
 
 clients = []
+bots = ['ellen', 'ola', 'steffen', 'ingrid']
 
 #Message to all clients
 def toAllClients(message):
@@ -30,7 +31,10 @@ def receive():
         # adding client to clients
         clients.append(client)
         #Send to all client who joined
-        toAllClients((f'{nickname} joined chat').encode('utf-8'))
+        if nickname in bots:
+            toAllClients((f'Chatbot {nickname} joined chat, and are ready to mingle').encode('utf-8'))
+        else:
+            toAllClients((f'{nickname} joined chat').encode('utf-8'))
 
         #toAllClients("heisann".encode('utf-8'))
 
