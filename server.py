@@ -1,8 +1,15 @@
 import socket
 import threading
+import argparse
+
+# Port you want to join on
+arg = argparse.ArgumentParser()
+arg.add_argument('port', type=int)
+allArg = arg.parse_args()
+port = allArg.port
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.bind(("localhost", 8081))
+server_socket.bind(("localhost", port))
 server_socket.listen()
 
 clients = []
@@ -13,7 +20,7 @@ def toAllClients(message):
     for client in clients:
         client.send(message)
 
-def receive():
+def accept():
     while True:
         # Accept Connection
         client, address = server_socket.accept()
@@ -53,4 +60,4 @@ def fromClientToClients(client):
 
 
 print('Server is ready...')
-receive()
+accept()

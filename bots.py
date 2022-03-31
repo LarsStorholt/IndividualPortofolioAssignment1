@@ -1,16 +1,16 @@
 import random
-import list_of_words
+from list_of_words import *
 
-def meldingFraBot():
-    return "Ellen: I can't answer that, sorry"
+def cantAsnwer():
+    return "Bots: I can't answer that, sorry"
 
 
 def ellen(word):
-    if word in list_of_words.hello_list:
-        response = random.choice(list_of_words.hello_list)
+    if word in hello_list:
+        response = random.choice(hello_list)
         return "Ellen: " + response
 
-    elif word in list_of_words.verbs:
+    elif word in verbs:
         response =  [
             f'Before becoming a chatbot, I was working as a sailer. I did a lot of {word + "ing"} back then',
             f'The chatbot Ellen is at duty. {word + "ing"} in Norwegian is torskelever',
@@ -21,26 +21,26 @@ def ellen(word):
         return "Ellen: " + random.choice(response)
 
 def ola(word):
-    if word in list_of_words.hello_list:
-        response = random.choice(list_of_words.hello_list)
+    if word in hello_list:
+        response = random.choice(hello_list)
         return "Ola: " + response
 
-    elif word in list_of_words.verbs:
+    elif word in verbs:
         response = [
             f'I love {word + "ing"}, let`s go!',
             f'{word + "ing"}?? Are you serious?',
             f'{word + "ing"}. Isnt that illigal?',
-            f'{word + "ing"}. I will rather {random.choice(list_of_words.verbs)}',
+            f'{word + "ing"}. I will rather {random.choice(verbs)}',
             f'Im the robot Ola, Im here to guidence you in {word + "ing"}',
         ]
         return "Ola: " + random.choice(response)
 
 def ingrid(word):
-    if word in list_of_words.hello_list:
-        response = random.choice(list_of_words.hello_list)
+    if word in hello_list:
+        response = random.choice(hello_list)
         return "Ingrid: " + response
 
-    elif word in list_of_words.verbs:
+    elif word in verbs:
         response = [
             f'{word + "ing"} is exactly what I need now!',
             f'Im in the middle of something right now. i aint got time for helping you with {word + "ing"}',
@@ -51,10 +51,10 @@ def ingrid(word):
     return "Ingrid: " + random.choice(response)
 
 def steffen(word):
-    if word in list_of_words.hello_list:
-        response = random.choice(list_of_words.hello_list)
+    if word in hello_list:
+        response = random.choice(hello_list)
         return "Steffen: " + response
-    elif word in list_of_words.verbs:
+    elif word in verbs:
         response = [
             f'I would love to help you {word + "ing"}',
             f'My parents are out of town this weekend! {word + "ing"} sound perfect!',
