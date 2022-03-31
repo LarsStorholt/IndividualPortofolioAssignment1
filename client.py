@@ -99,6 +99,7 @@ def fromBot():
                 client_socket.send(message_from_bot.encode('utf-8'))
 
 
+# Threads started
 recieve_thread = threading.Thread(target=takeIn)
 recieve_thread.start()
 

@@ -47,7 +47,7 @@ def accept():
         else:
             toAllClients((f'{nickname} joined chat').encode('utf-8'))
 
-
+        # Starting thread
         thread = threading.Thread(target=fromClientToClients, args=(client,))
         thread.start()
 
