@@ -20,39 +20,14 @@ def recieve():
             if message == "xx":
                 client_socket.send(nickname.encode())
             else:
-                if not message.startswith('lars'):
+                if nickname not in botnames:
                     print(message)
-                    fromBot(message)
-
-                #elif nickname == 'ingrid':
-                   # client_socket.send('hei'.encode('utf-8'))
-
-                #split_message = re.split(r'\s +|[,;?!.-]\s*', message.lower())
-                #splitMessage = message.lower.split()
-                #if nickname.lower == 'ingrid':
-                #    word = ''
-                #    for i in splitMessage:
-                #        for j in list_of_words.verbs:
-                #            if i == j: word = i
-                #    if not word:
-                #        client_socket.send('Didnt understand'.encode('utf-8'))
-                #    else:
-                #        botResponse = bots.Ingrid(word)
-                #        client_socket.send(botResponse.encode('utf-8'))
-                #input('')
-                #if nickname not in ['ellen','ola', 'steffen', 'ingrid']:
-
-                #print(message)
-
-                #print(f'{nickname}: {input("")}')
+                    #fromBot(message)
         except:
             print("error")
             client_socket.close()
             break
 
-
-#def motattfraBots():
- #   print(meldingFraBot())
 
 def writeInChat():
     while True:
@@ -60,19 +35,64 @@ def writeInChat():
         #print(message)
         client_socket.send(message.encode('utf-8'))
 
-def fromBot(message):
-    #message = client_socket.recv(1024).decode('utf-8')
-    message_split = message.split()
-    #calls messages from bots if the message is a chat-message from a host
-    if message_split[0].endswith(':') & (message_split[0][:-1] not in botnames):
-        message_from_bot = bots.meldingFraBot()
-        client_socket.send(message_from_bot.encode('utf-8'))
+def fromBot():
+    while True:
+        message = client_socket.recv(1024).decode('utf-8')
+        message_split = message.split()
 
+        #'Find' answers from bots if the message is form a non-bot client
+        if message_split[0].endswith(':') & (message_split[0][:-1] not in botnames):
+            word = ''
+            #Checking for a 'hello'-word
+            for i in message_split:
+                for j in list_of_words.hello_list:
+                    if i == j:
+                        word = i
+                        break
+                    else:
+                        continue
+                    break
+                else:
+                    continue
+                break
 
+            # Checking for a verb in verb-list
+            for n in message_split:
+                for m in list_of_words.verbs:
+                    if n == m:
+                        word = n
+                        break
+                    else:
+                        continue
+                    break
+                else:
+                    continue
+                break
 
-            #else: print('Ikke chat-melding')
-#funksjon()
-#writeInChat()
+            if nickname.lower() == 'ellen':
+                message_from_ellen = bots.ellen(word)
+                print(message_from_ellen)
+                client_socket.send(message_from_ellen.encode('utf-8'))
+
+            elif nickname.lower() == 'ola':
+                message_from_ola = bots.ola(word)
+                print(message_from_ola)
+                client_socket.send(message_from_ola.encode('utf-8'))
+
+            elif nickname.lower() == 'steffen':
+                message_from_steffen = bots.steffen(word)
+                print(message_from_steffen)
+                client_socket.send(message_from_steffen.encode('utf-8'))
+
+            elif nickname.lower() == 'ingrid':
+                message_from_ingrid = bots.ingrid(word)
+                print(message_from_ingrid)
+                client_socket.send(message_from_ingrid.encode('utf-8'))
+
+            else:
+                message_from_bot = 'Bots: I`m sorry, but we do not have a good answer to that'
+                client_socket.send(message_from_bot.encode('utf-8'))
+
 
 recieve_thread = threading.Thread(target=recieve)
 recieve_thread.start()
@@ -80,5 +100,5 @@ recieve_thread.start()
 write_thread = threading.Thread(target=writeInChat)
 write_thread.start()
 
-#write_thread = threading.Thread(target=fromBot)
-#write_thread.start()
+write_thread = threading.Thread(target=fromBot)
+write_thread.start()

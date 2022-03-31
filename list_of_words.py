@@ -1,6 +1,6 @@
 
 #List of greeting-words
-hello_list = ['yo', 'hello', 'hei', 'greetings', 'sup', 'hey',  'hail', 'hi', 'wassup', 'hallo', 'hola', 'Good day', 'guten tag'
+hello_list = ['yo', 'hello', 'hei', 'greetings', 'sup', 'hey',  'hail', 'hi', 'wassup', 'hallo', 'hola', 'Good day', 'guten tag',
               'ni hao', 'bonjour', 'hii']
 
 #List of verbs https://www.linguasorb.com/english/verbs/most-common-verbs/3

@@ -8,7 +8,7 @@ server_socket.listen()
 clients = []
 bots = ['ellen', 'ola', 'steffen', 'ingrid']
 
-#Message to all clients
+# Broadcast message to all clients
 def toAllClients(message):
     for client in clients:
         client.send(message)
@@ -20,27 +20,25 @@ def receive():
 
         client.send('xx'.encode('utf-8'))
 
-
-
+        # Printed to server which address the server is connected to client
         print(f"Connected with client on {str(address)}")
 
         #Recieve the name of the person joined the chat and print to server
         nickname = client.recv(1024).decode('utf-8')
-        print(f'{nickname} joined')
+        if nickname in bots:
+            print(f'Chatbot {nickname} joined')
+        else:
+            print(f'{nickname} joined')
 
-        # adding client to clients
+        # adding client to clients-list
         clients.append(client)
+
         #Send to all client who joined
         if nickname in bots:
             toAllClients((f'Chatbot {nickname} joined chat, and are ready to mingle').encode('utf-8'))
         else:
             toAllClients((f'{nickname} joined chat').encode('utf-8'))
 
-        #toAllClients("heisann".encode('utf-8'))
-
-        #message = client.recv(1024)
-        #print(message.decode())
-        #toAll(message)
 
         thread = threading.Thread(target=fromClientToClients, args=(client,))
         thread.start()
