@@ -8,6 +8,7 @@ arg.add_argument('port', type=int)
 allArg = arg.parse_args()
 port = allArg.port
 
+# Setting up socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(("localhost", port))
 server_socket.listen()
@@ -50,14 +51,12 @@ def accept():
         thread = threading.Thread(target=fromClientToClients, args=(client,))
         thread.start()
 
-
+#Sends the messages recieved from a client, out to all clients
 def fromClientToClients(client):
     while True:
         message = client.recv(1024)
         print(message.decode('utf-8'))
         toAllClients(message)
-
-
 
 print('Server is ready...')
 accept()

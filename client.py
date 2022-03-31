@@ -10,10 +10,10 @@ argument.add_argument('ip', type=str)
 argument.add_argument('port', type=int)
 bothArg = argument.parse_args()
 
-
 ip = bothArg.ip
 port = bothArg.port
 
+# Setting up socket
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((ip, port))
 
@@ -21,7 +21,7 @@ nickname = input("Choose a nickname: ")
 nicknames = []
 botnames = ['ingrid', 'ola', 'ellen', 'steffen']
 
-def recieve():
+def takeIn():
     while True:
         try:
             message = client_socket.recv(1024).decode('utf-8')
@@ -99,7 +99,7 @@ def fromBot():
                 client_socket.send(message_from_bot.encode('utf-8'))
 
 
-recieve_thread = threading.Thread(target=recieve)
+recieve_thread = threading.Thread(target=takeIn)
 recieve_thread.start()
 
 write_thread = threading.Thread(target=inputChat)
